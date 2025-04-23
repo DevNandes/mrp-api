@@ -27,7 +27,7 @@ Uma API REST em **Node.js**, **TypeScript** e **Express**, integrada ao **MongoD
 
 1. Clone o repositório:
    ```bash
-   git clone https://github.com/seu-usuario/mrp-api.git
+   git clone https://github.com/DevNandes/mrp-api.git
    cd mrp-api
    ```
 2. Instale as dependências:
