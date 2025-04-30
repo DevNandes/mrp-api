@@ -8,11 +8,11 @@ const SALT_ROUNDS = 10;
 export class AuthService {
   private userRepo = new UserRepository();
 
-  async register(email: string, password: string): Promise<IUser> {
+  async register(name: string, email: string, password: string): Promise<IUser> {
     const existing = await this.userRepo.findByEmail(email);
     if (existing) throw new Error('Email já cadastrado');
     const hash = await bcrypt.hash(password, SALT_ROUNDS);
-    return this.userRepo.create({ email, password: hash });
+    return this.userRepo.create({ name, email, password: hash });
   }
 
   async login(email: string, password: string): Promise<{ accessToken: string; refreshToken: string }> {

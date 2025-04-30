@@ -6,6 +6,7 @@ import { authenticateToken } from './middleware/authMiddleware';
 import { materialRouter } from './routes/materialRoutes';
 import { movementRouter } from './routes/movementRoutes';
 import { depositRouter } from './routes/depositRoutes';
+import { historyRouter } from './routes/historyRoutes';
 
 dotenv.config();
 const app = express();
@@ -16,6 +17,7 @@ app.use('/auth', authRouter);
 app.use('/materials', authenticateToken, materialRouter);
 app.use('/movements', authenticateToken, movementRouter);
 app.use('/deposits', authenticateToken, depositRouter);
+app.use('/history', authenticateToken, historyRouter);
 
 const PORT = process.env.PORT || 3000;
 
