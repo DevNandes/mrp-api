@@ -1,15 +1,21 @@
 import express from 'express';
 import { connectDB } from './config/db';
+import dotenv from 'dotenv';
+import { authRouter } from './routes/authRoutes';
+import { authenticateToken } from './middleware/authMiddleware';
 import { materialRouter } from './routes/materialRoutes';
 import { movementRouter } from './routes/movementRoutes';
-import dotenv from 'dotenv';
+import { depositRouter } from './routes/depositRoutes';
 
 dotenv.config();
 const app = express();
 app.use(express.json());
 
-app.use('/materials', materialRouter);
-app.use('/movements', movementRouter);
+app.use('/auth', authRouter);
+// Rotas protegidas por JWT
+app.use('/materials', authenticateToken, materialRouter);
+app.use('/movements', authenticateToken, movementRouter);
+app.use('/deposits', authenticateToken, depositRouter);
 
 const PORT = process.env.PORT || 3000;
 
