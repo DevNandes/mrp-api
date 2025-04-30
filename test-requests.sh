@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-# URL base (pode passar como primeiro parâmetro, ex: ./test-requests.sh http://localhost:6001)
-BASE_URL="${1:-http://localhost:3000}"
+# URL base
+BASE_URL="${1:-http://localhost:6001}"
 
 # Email e senha de teste
 EMAIL="user@example.com"
