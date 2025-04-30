@@ -22,18 +22,12 @@ export const connectDB = async () => {
     }
   }
 
+  // Sincronizar índices de depósitos
+  // Isso é necessário para garantir que os índices sejam criados com o index correto
   try {
     await Deposit.syncIndexes();
     console.log('Indexes de depósitos sincronizados');
   } catch (err) {
     console.error('Falha ao sincronizar índices de depósitos:', err);
-  }
-
-  // Sincroniza índices do schema, removendo índices antigos não definidos (ex: name_1)
-  try {
-    await Deposit.syncIndexes();
-    console.log('Indexes sincronizados');
-  } catch (err) {
-    console.error('Falha ao sincronizar indexes:', err);
   }
 };
