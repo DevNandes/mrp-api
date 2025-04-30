@@ -1,5 +1,6 @@
 import { Router } from 'express';
-import { registerMovement } from '../controllers/movementController';
+import { registerMovement, listMovement } from '../controllers/movementController';
 
 export const movementRouter = Router()
+  .get('/', listMovement)
   .post('/', registerMovement);
