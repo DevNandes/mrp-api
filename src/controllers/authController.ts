@@ -3,6 +3,43 @@ import { AuthService } from '../services/AuthService';
 
 const authService = new AuthService();
 
+/**
+ * @swagger
+ * /auth/register:
+ *   post:
+ *     summary: Registra um novo usuário
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *               email:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *             required: [name, email, password]
+ *     responses:
+ *       201:
+ *         description: Usuário registrado
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id:
+ *                   type: string
+ *                 name:
+ *                   type: string
+ *                 email:
+ *                   type: string
+ *                 createdAt:
+ *                   type: string
+ *                   format: date-time
+ */
 export const register = async (req: Request, res: Response) => {
   try {
     const { name, email, password } = req.body;
@@ -13,6 +50,30 @@ export const register = async (req: Request, res: Response) => {
   }
 };
 
+/**
+ * @swagger
+ * /auth/login:
+ *   post:
+ *     summary: Faz login e retorna tokens
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/AuthLogin'
+ *           example:
+ *             email: "user@example.com"
+ *             password: "senha123"
+ *     responses:
+ *       200:
+ *         description: Tokens JWT retornados
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/AuthResponse'
+ *       400:
+ *         description: Erro de credenciais inválidas
+ */
 export const login = async (req: Request, res: Response) => {
   try {
     const { email, password } = req.body;
@@ -23,6 +84,31 @@ export const login = async (req: Request, res: Response) => {
   }
 };
 
+/**
+ * @swagger
+ * /auth/refresh:
+ *   post:
+ *     summary: Renova tokens JWT usando refreshToken
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               refreshToken:
+ *                 type: string
+ *             required: [refreshToken]
+ *     responses:
+ *       200:
+ *         description: Novos tokens retornados
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/AuthResponse'
+ *       401:
+ *         description: Refresh token inválido ou expirado
+ */
 export const refreshToken = async (req: Request, res: Response) => {
   try {
     const { refreshToken } = req.body;
@@ -33,6 +119,27 @@ export const refreshToken = async (req: Request, res: Response) => {
   }
 };
 
+/**
+ * @swagger
+ * /auth/logout:
+ *   post:
+ *     summary: Logout e invalida refreshToken
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               refreshToken:
+ *                 type: string
+ *             required: [refreshToken]
+ *     responses:
+ *       200:
+ *         description: Logout realizado
+ *       400:
+ *         description: Refresh token inválido
+ */
 export const logout = async (req: Request, res: Response) => {
   try {
     const { refreshToken } = req.body;
