@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "ts-node-dev --respawn --transpile-only src/index.ts"
+    "test": "jest --coverage",
+    "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
+    "coverage:open": "npm test && xdg-open coverage/lcov-report/index.html"
   },
   "keywords": [],
   "author": "",
@@ -17,12 +18,19 @@
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.13.2"
+    "mongoose": "^8.13.2",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1"
   },
   "devDependencies": {
     "@types/express": "^5.0.1",
+    "@types/jest": "^29.5.14",
     "@types/mongoose": "^5.11.96",
     "@types/node": "^22.14.1",
+    "@types/swagger-jsdoc": "^6.0.4",
+    "@types/swagger-ui-express": "^4.1.8",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.4.0",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.8.3"
   }

@@ -63,35 +63,61 @@ A aplicação ficará disponível em `http://localhost:3000`.
 
 ---
 
-## 🧪 Testes
+## 🛣️ Endpoints da API
 
-Em breve estará disponível o arquivo `test.md` com instruções completas de testes automatizados (Jest + Supertest). Para começar a testar manualmente, utilize os exemplos de cURL abaixo:
+### Autenticação
+- POST /auth/register
+  - Body: `{ "name": string, "email": string, "password": string }`
+- POST /auth/login
+  - Body: `{ "email": string, "password": string }` (exemplo já preenchido no Swagger)
+- POST /auth/refresh
+  - Body: `{ "refreshToken": string }`
+- POST /auth/logout
+  - Body: `{ "refreshToken": string }`
+  - Header: `Authorization: Bearer <token>`
 
-1. **Criar material**:
-   ```bash
-   curl -X POST http://localhost:3000/materials \
-     -H "Content-Type: application/json" \
-     -d '{ "name": "Aço", "quantity": 100 }'
-   ```
+### Depósitos
+- GET /deposits
+  - Query params opcionais: `id`, `title`, `description`, `active`
+- POST /deposits
+  - Body: `{ "title": string, "description": string }`
+- PUT /deposits/:id
+  - Body: `{ "title"?: string, "description"?: string, "active"?: boolean }`
+- DELETE /deposits/:id
+  - Marca o depósito como inativo
 
-2. **Listar materiais**:
-   ```bash
-   curl http://localhost:3000/materials
-   ```
+### Histórico
+- GET /history
+  - Query params opcionais: `where`, `type`, `user`, `from`, `to`
+  - Exemplo: `/history?where=deposit&type=create&from=2025-06-01T00:00:00Z&to=2025-06-18T23:59:59Z`
 
-3. **Registrar entrada de estoque**:
-   ```bash
-   curl -X POST http://localhost:3000/movements \
-     -H "Content-Type: application/json" \
-     -d '{ "material": "<ID_DO_MATERIAL>", "type": "in", "quantity": 50 }'
-   ```
+---
 
-4. **Registrar saída de estoque**:
-   ```bash
-   curl -X POST http://localhost:3000/movements \
-     -H "Content-Type: application/json" \
-     -d '{ "material": "<ID_DO_MATERIAL>", "type": "out", "quantity": 20 }'
-   ```
+## 🧪 Testes Automatizados e Cobertura
+
+Rode todos os testes com Jest:
+```bash
+npm test
+```
+
+Para visualizar cobertura no navegador (Linux):
+```bash
+xdg-open coverage/lcov-report/index.html
+```
+
+---
+
+## 📑 Documentação interativa (Swagger)
+
+Acesse via Swagger UI para testar rotas protegidas com Bearer token:
+```bash
+npm run dev
+```
+Abra no navegador:
+```
+http://localhost:3000/api-docs
+```
+Use o botão **Authorize** para inserir o JWT e os exemplos de payload estarão prontos nos campos de request.
 
 ---
 
